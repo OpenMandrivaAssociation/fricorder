@@ -15,7 +15,6 @@ Source12:  %{name}-48.png
 License: GPL
 Group: 	 Video
 Url: 	 http://manatlan.online.fr/fricorder.php
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 Requires: vlc
