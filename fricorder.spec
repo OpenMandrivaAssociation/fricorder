@@ -74,16 +74,6 @@ EOF
 chmod 755 $RPM_BUILD_ROOT/%{_bindir}/%{name}
 
 #menus
-install -d %buildroot/%{_menudir}
-cat <<EOF >%buildroot/%{_menudir}/%{name}
-?package(%{name}):command="%{_bindir}/%{name}" \
-                  icon=%{name}.png \
-                  needs="x11" \
-                  section="Multimedia/Video" \
-                  title="%{title}"\
-                  longtitle="%{summary}"\
-		  xdg="true"		
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -110,7 +100,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc COPYING README
 %{_bindir}/%{name}
 %{_datadir}/%{name}-%{version}
-%_menudir/%{name}
 %_iconsdir/%{name}.png
 %_liconsdir/%{name}.png
 %_miconsdir/%{name}.png
