@@ -3,7 +3,7 @@
 %define release %mkrel 6
 %define title Fricorder
 
-Summary: Fricorder is a video recorder for Freebox from a french isp adsl 
+Summary: Video recorder for Freebox from a french isp adsl 
 Name:    %{name}
 Version: %{version}
 Release: %{release}
