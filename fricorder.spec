@@ -1,6 +1,6 @@
 %define name fricorder
 %define version 0.6
-%define release %mkrel 6
+%define release %mkrel 7
 %define title Fricorder
 
 Summary: Video recorder for Freebox from a french isp adsl 
