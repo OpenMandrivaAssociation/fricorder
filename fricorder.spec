@@ -114,3 +114,50 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %{clean_menus}
 %endif
+
+
+%changelog
+* Thu Jul 24 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.6-9mdv2009.0
++ Revision: 245417
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+
+* Mon Feb 18 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.6-7mdv2008.1
++ Revision: 170847
+- rebuild
+- fix "foobar is blabla" summary (=> "blabla") so that it looks nice in rpmdrake
+- drop old menu
+- kill re-definition of %%buildroot on Pixel's request
+- kill desktop-file-validate's 'warning: key "Encoding" in group "Desktop Entry" is deprecated'
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Sun Aug 19 2007 Oden Eriksson <oeriksson@mandriva.com> 0.6-6mdv2008.0
++ Revision: 66660
+- Import fricorder
+
+
+
+* Mon Jul 17 2006 Jerome Martin <jmartin@mandriva.org> 0.6-6mdv2007.0
+- xdg menu
+
+* Fri Apr 14 2006 Jerome Martin <jmartin@mandriva.org> 0.6-5mdk
+- Fixed requirement + installation path (Thx to Michael Scherer)
+- Added short english description
+
+* Fri Apr  7 2006 Jerome Martin <jmartin@mandriva.org> 0.6-4mdk
+- Fixed rmplint errors
+
+* Wed Feb  1 2006 Jerome Martin <jmartin@mandriva.org> 0.6-3mdk
+- Fixed requires
+- Fixed menu
+
+* Thu Jan 19 2006 Jerome Martin <jmartin@mandriva.org> 0.6-2mdk
+- Added requires
+- Fixed BuildArch
+
+* Mon Jan 16 2006 Jerome Martin <jmartin@mandriva.org> 0.6-1mdk
+- Initial version
