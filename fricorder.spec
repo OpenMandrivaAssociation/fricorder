@@ -1,12 +1,9 @@
-%define name fricorder
-%define version 0.6
-%define release %mkrel 9
 %define title Fricorder
 
 Summary: Video recorder for Freebox from a french isp adsl 
-Name:    %{name}
-Version: %{version}
-Release: %{release}
+Name:    fricorder
+Version: 0.6
+Release: 10
 Source0: %{name}-%{version}.tar.bz2
 Patch0: %{name}-fixed-exe.patch.bz2
 Source10:  %{name}-16.png
@@ -15,12 +12,11 @@ Source12:  %{name}-48.png
 License: GPL
 Group: 	 Video
 Url: 	 http://manatlan.online.fr/fricorder.php
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch: noarch
 
 Requires: vlc
 Requires: python => 2.4 
-Requires: pygtk2.0 pygtk2.0-libglade python-pyxml
+Requires: pygtk2.0 pygtk2.0-libglade
 Requires: zenity
 Requires: at
 
@@ -28,14 +24,14 @@ Requires: at
 Fricorder is a video recorder for Freebox from a french isp adsl.
 
 Fricorder permet de programmer des enregistrements
-vidéo des flux émis par la freebox dans le cadre de
-la fonctionnalité "multiposte", en utilisant vlc.
+vidÃ©o des flux Ã©mis par la freebox dans le cadre de
+la fonctionnalitÃ© "multiposte", en utilisant vlc.
 
 Ses principales features :
- - interfaces Web (pilotable à distance) et GTK
+ - interfaces Web (pilotable a distance) et GTK
  - utilisation d'un guide tv pour faciliter la saisie (xmltv)
- - utilise les capacités de linux ;-) (commande "at")
-   (fricorder n'a pas besoin d'être lancé, c'est l'OS qui se
+ - utilise les capacitÃ©s de linux ;-) (commande "at")
+   (fricorder n'a pas besoin d'etre lancÃ©, c'est l'OS qui se
    charge de l'enregistrement, seul ce dernier doit tourner ;-)
  - recherche des flux directement sur la freebox (playlist.m3u)
 
@@ -45,25 +41,24 @@ Ses principales features :
 chmod 444 README
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-install -m755 frecord.sh $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-install -m755 fricorder.py $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-install -m644 SimpleGladeApp.py $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-install -m644 fricorder.glade $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-install -m755 fricorder-web.py $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}/libs
+mkdir -p %{buildroot}/%{_datadir}/%{name}-%{version}
+install -m755 frecord.sh %{buildroot}/%{_datadir}/%{name}-%{version}
+install -m755 fricorder.py %{buildroot}/%{_datadir}/%{name}-%{version}
+install -m644 SimpleGladeApp.py %{buildroot}/%{_datadir}/%{name}-%{version}
+install -m644 fricorder.glade %{buildroot}/%{_datadir}/%{name}-%{version}
+install -m755 fricorder-web.py %{buildroot}/%{_datadir}/%{name}-%{version}
+mkdir -p %{buildroot}/%{_datadir}/%{name}-%{version}/libs
 for i in libs/*; do
-  install -m644 $i $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}/libs
+  install -m644 $i %{buildroot}/%{_datadir}/%{name}-%{version}/libs
 done
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}/templates
+mkdir -p %{buildroot}/%{_datadir}/%{name}-%{version}/templates
 for i in templates/*; do
-  install -m644 $i $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}/templates
+  install -m644 $i %{buildroot}/%{_datadir}/%{name}-%{version}/templates
 done
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}/tmp
+mkdir -p %{buildroot}/%{_datadir}/%{name}-%{version}/tmp
 
-mkdir -p $RPM_BUILD_ROOT/%{_bindir}/
-cat <<EOF >$RPM_BUILD_ROOT/%{_bindir}/%{name}
+mkdir -p %{buildroot}/%{_bindir}/
+cat <<EOF >%{buildroot}/%{_bindir}/%{name}
 #!/bin/sh
 PYTHONPATH=${PYTHONPATH=.}
 
@@ -71,12 +66,12 @@ PYTHONPATH=${PYTHONPATH}:%{_datadir}/%{name}-%{version}
 
 exec python -u -O %{_datadir}/%{name}-%{version}/fricorder.py $*
 EOF
-chmod 755 $RPM_BUILD_ROOT/%{_bindir}/%{name}
+chmod 755 %{buildroot}/%{_bindir}/%{name}
 
 #menus
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir -p %{buildroot}%{_datadir}/applications
+cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=%{title}
 Comment=%{summary}
@@ -92,11 +87,8 @@ install -m644 %{SOURCE10} -D %buildroot/%{_miconsdir}/%{name}.png
 install -m644 %{SOURCE11} -D %buildroot/%{_iconsdir}/%{name}.png
 install -m644 %{SOURCE12} -D %buildroot/%{_liconsdir}/%{name}.png
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
 %doc COPYING README
 %{_bindir}/%{name}
 %{_datadir}/%{name}-%{version}
@@ -105,59 +97,3 @@ rm -rf $RPM_BUILD_ROOT
 %_miconsdir/%{name}.png
 %_datadir/applications/mandriva-%{name}.desktop
 
-%if %mdkversion < 200900
-%post
-%{update_menus}
-%endif
-
-%if %mdkversion < 200900
-%postun
-%{clean_menus}
-%endif
-
-
-%changelog
-* Thu Jul 24 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.6-9mdv2009.0
-+ Revision: 245417
-- rebuild
-
-  + Pixel <pixel@mandriva.com>
-    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
-
-* Mon Feb 18 2008 Thierry Vignaud <tvignaud@mandriva.com> 0.6-7mdv2008.1
-+ Revision: 170847
-- rebuild
-- fix "foobar is blabla" summary (=> "blabla") so that it looks nice in rpmdrake
-- drop old menu
-- kill re-definition of %%buildroot on Pixel's request
-- kill desktop-file-validate's 'warning: key "Encoding" in group "Desktop Entry" is deprecated'
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-* Sun Aug 19 2007 Oden Eriksson <oeriksson@mandriva.com> 0.6-6mdv2008.0
-+ Revision: 66660
-- Import fricorder
-
-
-
-* Mon Jul 17 2006 Jerome Martin <jmartin@mandriva.org> 0.6-6mdv2007.0
-- xdg menu
-
-* Fri Apr 14 2006 Jerome Martin <jmartin@mandriva.org> 0.6-5mdk
-- Fixed requirement + installation path (Thx to Michael Scherer)
-- Added short english description
-
-* Fri Apr  7 2006 Jerome Martin <jmartin@mandriva.org> 0.6-4mdk
-- Fixed rmplint errors
-
-* Wed Feb  1 2006 Jerome Martin <jmartin@mandriva.org> 0.6-3mdk
-- Fixed requires
-- Fixed menu
-
-* Thu Jan 19 2006 Jerome Martin <jmartin@mandriva.org> 0.6-2mdk
-- Added requires
-- Fixed BuildArch
-
-* Mon Jan 16 2006 Jerome Martin <jmartin@mandriva.org> 0.6-1mdk
-- Initial version
