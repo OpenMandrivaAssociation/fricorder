@@ -3,7 +3,7 @@
 Summary: Video recorder for Freebox from a french isp adsl 
 Name:    fricorder
 Version: 0.6
-Release: 10
+Release: 11
 Source0: %{name}-%{version}.tar.bz2
 Patch0: %{name}-fixed-exe.patch.bz2
 Source10:  %{name}-16.png
